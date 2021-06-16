@@ -18,7 +18,7 @@ export function Searcher(props) {
 
   return (
     <div>
-      <h2>Search</h2>
+      <h2>Search Crypto Price</h2>
       <form
         onSubmit={(e) => {
           handleSubmit(e);
