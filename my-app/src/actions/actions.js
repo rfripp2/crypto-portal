@@ -7,7 +7,7 @@ export function addCoin(coin) {
   };
 }
 
-export function apiCall(coin) {
+export const apiCall = (coin) => {
   return function (dispatch) {
     console.log("entering here");
 
@@ -17,7 +17,6 @@ export function apiCall(coin) {
       .then((response) => response.json())
       .then((json) => {
         dispatch({ type: API_CALL, payload: json });
-        console.log(json);
       });
   };
-}
+};

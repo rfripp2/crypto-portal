@@ -17,7 +17,7 @@ function rootReducer(state = initialState, action) {
     case API_CALL:
       return {
         ...state,
-        coinPrices: state.coinPrices.concat(action.payload),
+        coinPrices: [...state.coinPrices, action.payload],
       };
 
     default:

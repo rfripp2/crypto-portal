@@ -1,27 +1,19 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { addCoin } from "../actions/actions";
-import { apiCall } from "../actions/actions";
+
 export function Searcher(props) {
   const [coin, setCoin] = useState("");
 
   const handleOnChange = (e) => {
     setCoin(e.target.value);
+    console.log(coin);
   };
-
-  function handleApiCall() {
-    if (props.coins) {
-      props.coins.forEach((coin) => {
-        props.apiCall(coin);
-      });
-    }
-  }
 
   function handleSubmit(e) {
     e.preventDefault();
-    props.addCoin(coin);
     setCoin("");
-    handleApiCall();
+    props.addCoin(coin);
   }
 
   return (
@@ -38,7 +30,14 @@ export function Searcher(props) {
           value={coin}
           onChange={(e) => handleOnChange(e)}
         ></input>
-        <button type="submit">Search</button>
+        <button
+          onSubmit={(e) => {
+            handleSubmit(e);
+          }}
+          type="submit"
+        >
+          Search
+        </button>
       </form>
     </div>
   );
@@ -50,4 +49,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { addCoin, apiCall })(Searcher);
+export default connect(mapStateToProps, { addCoin })(Searcher);
