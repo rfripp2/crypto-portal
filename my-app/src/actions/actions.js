@@ -1,16 +1,15 @@
-export const ADD_COIN = "ADD_COIN";
 export const API_CALL = "API_CALL";
-export function addCoin(coin) {
+export const GET_COIN_LIST = "GET_COIN_LIST";
+export const HANDLE_INTERVAL = "HANDLE_INTERVAL";
+export const RESET = "RESET";
+export const getCoinList = (coins) => {
   return {
-    type: "ADD_COIN",
-    payload: coin,
+    type: "GET_COIN_LIST",
+    payload: coins,
   };
-}
-
+};
 export const apiCall = (coin) => {
   return function (dispatch) {
-    console.log("entering here");
-
     return fetch(
       `https://api.coingecko.com/api/v3/simple/price?ids=${coin}&vs_currencies=usd`
     )
@@ -18,5 +17,18 @@ export const apiCall = (coin) => {
       .then((json) => {
         dispatch({ type: API_CALL, payload: json });
       });
+  };
+};
+
+export const handleInterval = (coins) => {
+  return {
+    type: HANDLE_INTERVAL,
+    payload: coins,
+  };
+};
+
+export const reset = () => {
+  return {
+    type: RESET,
   };
 };

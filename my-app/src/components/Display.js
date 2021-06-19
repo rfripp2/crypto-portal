@@ -1,14 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { apiCall } from "../actions/actions";
 import CoinContainer from "./CoinContainer";
 function Display(props) {
-  useEffect(() => {
-    props.coins.forEach((x) => {
-      props.apiCall(x);
-    });
-  }, [props.coins]);
-
   return (
     <div>
       {props.coinPrices.map((coin) => (
@@ -23,7 +17,6 @@ function Display(props) {
 
 function mapStateToProps(state) {
   return {
-    coins: state.coins,
     coinPrices: state.coinPrices,
   };
 }

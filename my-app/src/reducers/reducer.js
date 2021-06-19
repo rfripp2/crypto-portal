@@ -1,24 +1,26 @@
-import { ADD_COIN, API_CALL } from "../actions/actions";
+import { API_CALL, GET_COIN_LIST, HANDLE_INTERVAL } from "../actions/actions";
 
 const initialState = {
-  coins: [],
+  coinList: [],
   coinPrices: [],
+  coinsUpdate: [],
 };
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
-    case ADD_COIN:
-      console.log("adding?");
+    case GET_COIN_LIST:
       return {
         ...state,
-        coins: state.coins.concat(action.payload),
+        coinList: state.coinList.concat(action.payload),
       };
-
     case API_CALL:
       return {
         ...state,
         coinPrices: [...state.coinPrices, action.payload],
       };
+
+    case HANDLE_INTERVAL:
+      return {};
 
     default:
       return state;
