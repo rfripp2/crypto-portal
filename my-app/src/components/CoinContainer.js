@@ -4,7 +4,7 @@ export default function CoinContainer({ coin, price }) {
   const [priceUpdated, setPrice] = useState("");
   useEffect(() => {
     setInterval(priceUpdate, 12000);
-  }, []);
+  });
   function priceUpdate() {
     return fetch(
       `https://api.coingecko.com/api/v3/simple/price?ids=${coin}&vs_currencies=usd`

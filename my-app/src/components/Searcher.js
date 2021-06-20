@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
-import { apiCall, getCoinList } from "../actions/actions";
+import { apiCall } from "../actions/actions";
 
 export function Searcher(props) {
   const [coin, setCoin] = useState("");
-  // Trato de mapear coinPrices array global con precios actualizados con setInterval
-
-  // updatePrice es un dispatcher. Recibe el array global de coinPrices con formato [{bitcoin : {usd: 100}},]
 
   const handleOnChange = (e) => {
     setCoin(e.target.value);
@@ -15,8 +12,7 @@ export function Searcher(props) {
   function handleSubmit(e) {
     e.preventDefault();
     setCoin("");
-    props.getCoinList(coin); // Este dispatch es solo de referencia,no tiene funcionalidad
-    props.apiCall(coin); // Agrega al estado global coinPrices
+    props.apiCall(coin);
   }
   return (
     <div>
@@ -45,14 +41,12 @@ export function Searcher(props) {
   );
 }
 
-function mapStateToProps(state) {
+/* function mapStateToProps(state) {
   return {
     coinPrices: state.coinPrices,
-    coinList: state.coinList,
   };
-}
+} */
 
-export default connect(mapStateToProps, {
+export default connect(null, {
   apiCall,
-  getCoinList,
 })(Searcher);
