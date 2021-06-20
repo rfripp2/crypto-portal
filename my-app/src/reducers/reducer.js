@@ -1,9 +1,8 @@
-import { API_CALL, GET_COIN_LIST, HANDLE_INTERVAL } from "../actions/actions";
+import { API_CALL, GET_COIN_LIST } from "../actions/actions";
 
 const initialState = {
   coinList: [],
   coinPrices: [],
-  coinsUpdate: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -18,9 +17,6 @@ function rootReducer(state = initialState, action) {
         ...state,
         coinPrices: [...state.coinPrices, action.payload],
       };
-
-    case HANDLE_INTERVAL:
-      return {};
 
     default:
       return state;
