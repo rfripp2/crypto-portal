@@ -1,10 +1,22 @@
-import React, { useEffect, useState } from "react";
-
+import React, { useEffect, useState, useRef } from "react";
+import styles from "./CoinContainer.module.css";
 export default function CoinContainer({ coin, price }) {
   const [priceUpdated, setPrice] = useState("");
   useEffect(() => {
-    setInterval(priceUpdate, 12000);
+    setInterval(priceUpdate, 20000);
   });
+
+  const prevPriceRef = useRef();
+  useEffect(() => {
+    prevPriceRef.current = priceUpdated;
+  }, [priceUpdated]);
+
+  const prevPrice = prevPriceRef.current;
+
+  function toggleClassName() {
+    return prevPrice > priceUpdated ? styles.redPrice : styles.greenPrice;
+  }
+
   function priceUpdate() {
     return fetch(
       `https://api.coingecko.com/api/v3/simple/price?ids=${coin}&vs_currencies=usd`
@@ -13,12 +25,15 @@ export default function CoinContainer({ coin, price }) {
       .then((result) => {
         let key = Object.keys(result);
         setPrice(result[key].usd);
+        console.log(priceUpdated, prevPrice);
       });
   }
   return (
-    <div>
+    <div className={styles.padding}>
       <h2>{coin}</h2>
-      <h3>{priceUpdated ? priceUpdated : price}$</h3>
+      <h3 className={toggleClassName()}>
+        {priceUpdated ? priceUpdated : price}$
+      </h3>
     </div>
   );
 }

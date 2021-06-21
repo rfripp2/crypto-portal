@@ -1,0 +1,31 @@
+@keyframes upFadeBetween {
+  from {
+    color: green;
+  }
+  to {
+    color: white;
+  }
+}
+
+@keyframes downFadeBetween {
+  from {
+    color: red;
+  }
+  to {
+    color: white;
+  }
+}
+
+.redPrice {
+  color: white;
+  animation: downFadeBetween 5s;
+}
+
+.greenPrice {
+  color: white;
+  animation: upFadeBetween 5s;
+}
+
+.padding {
+  padding: 50px;
+}

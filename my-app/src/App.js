@@ -7,7 +7,9 @@ function App() {
     <div className="App">
       <header className="App-header">
         <Searcher></Searcher>
-        <Display></Display>
+        <div className="flex">
+          <Display></Display>
+        </div>
       </header>
     </div>
   );
