@@ -17,13 +17,17 @@
 }
 
 .redPrice {
-  color: white;
   animation: downFadeBetween 5s;
+  color: white;
 }
 
 .greenPrice {
-  color: white;
   animation: upFadeBetween 5s;
+  color: white;
+}
+
+.neutral {
+  color: yellow;
 }
 
 .padding {

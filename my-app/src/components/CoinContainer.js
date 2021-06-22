@@ -1,21 +1,34 @@
 import React, { useEffect, useState, useRef } from "react";
 import styles from "./CoinContainer.module.css";
+
+function usePrevious(data) {
+  const ref = useRef();
+  useEffect(() => {
+    ref.current = data;
+  }, [data]);
+  return ref.current;
+}
 export default function CoinContainer({ coin, price }) {
   const [priceUpdated, setPrice] = useState("");
+  const [reset, setReset] = useState(false);
+
+  const prevPrice = usePrevious(priceUpdated);
+
+  // Update price
   useEffect(() => {
     setInterval(priceUpdate, 20000);
-  });
+  }, []);
 
-  const prevPriceRef = useRef();
-  useEffect(() => {
-    prevPriceRef.current = priceUpdated;
-  }, [priceUpdated]);
+  // Apply different flash-color style according to up$ or down$ from prev
+  const toggleClassName = () => {
+    setTimeout(() => setReset(true), 6000);
 
-  const prevPrice = prevPriceRef.current;
-
-  function toggleClassName() {
-    return prevPrice > priceUpdated ? styles.redPrice : styles.greenPrice;
-  }
+    return prevPrice && prevPrice > priceUpdated
+      ? styles.redPrice
+      : prevPrice && prevPrice < priceUpdated
+      ? styles.greenPrice
+      : null;
+  };
 
   function priceUpdate() {
     return fetch(
@@ -24,14 +37,16 @@ export default function CoinContainer({ coin, price }) {
       .then((data) => data.json())
       .then((result) => {
         let key = Object.keys(result);
+        console.log(prevPrice);
+        setReset(false);
         setPrice(result[key].usd);
-        console.log(priceUpdated, prevPrice);
       });
   }
   return (
     <div className={styles.padding}>
       <h2>{coin}</h2>
-      <h3 className={toggleClassName()}>
+      {/* Here is the problem,i would like to remove the class after a few seconds,or edit the CSS code to retrigger the animation */}
+      <h3 className={reset ? "" : toggleClassName()}>
         {priceUpdated ? priceUpdated : price}$
       </h3>
     </div>
